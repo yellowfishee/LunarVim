@@ -2,6 +2,8 @@
  THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
  `lvim` is the global options object
 ]]
+-- rainbow init
+-- lvim.builtin.treesitter.rainbow.enable = true
 
 -- vim options
 vim.opt.shiftwidth = 2
