@@ -44,7 +44,6 @@ local defaults = {
     ["<A-Left>"] = "<C-\\><C-N><C-w>h",
     ["<A-Right>"] = "<C-\\><C-N><C-w>l",
   },
-
   normal_mode = {
     -- Better window movement
     ["<C-h>"] = "<C-w>h",
@@ -59,15 +58,14 @@ local defaults = {
     ["<C-Right>"] = ":vertical resize +2<CR>",
 
     -- Move current line / block with Alt-j/k a la vscode.
-    ["<A-j>"] = ":m .+1<CR>==",
-    ["<A-k>"] = ":m .-2<CR>==",
+    -- ["<A-j>"] = ":m .+1<CR>==",
+    -- ["<A-k>"] = ":m .-2<CR>==",
 
     -- QuickFix
     ["]q"] = ":cnext<CR>",
     ["[q"] = ":cprev<CR>",
     ["<C-q>"] = ":call QuickFixToggle()<CR>",
   },
-
   term_mode = {
     -- Terminal window navigation
     ["<C-h>"] = "<C-\\><C-N><C-w>h",
@@ -75,7 +73,6 @@ local defaults = {
     ["<C-k>"] = "<C-\\><C-N><C-w>k",
     ["<C-l>"] = "<C-\\><C-N><C-w>l",
   },
-
   visual_mode = {
     -- Better indenting
     ["<"] = "<gv",
@@ -84,13 +81,11 @@ local defaults = {
     -- ["p"] = '"0p',
     -- ["P"] = '"0P',
   },
-
   visual_block_mode = {
     -- Move current line / block with Alt-j/k ala vscode.
     ["<A-j>"] = ":m '>+1<CR>gv-gv",
     ["<A-k>"] = ":m '<-2<CR>gv-gv",
   },
-
   command_mode = {
     -- navigate tab completion with <c-j> and <c-k>
     -- runs conditionally

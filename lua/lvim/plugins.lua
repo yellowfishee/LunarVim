@@ -1,6 +1,6 @@
 -- local require = require("lvim.utils.require").require
 local core_plugins = {
-  { "folke/lazy.nvim", tag = "stable" },
+  { "folke/lazy.nvim",                 tag = "stable" },
   {
     "neovim/nvim-lspconfig",
     lazy = true,
@@ -19,7 +19,7 @@ local core_plugins = {
     lazy = true,
     dependencies = "mason.nvim",
   },
-  { "tamago324/nlsp-settings.nvim", cmd = "LspSettings", lazy = true },
+  { "tamago324/nlsp-settings.nvim",    cmd = "LspSettings", lazy = true },
   { "jose-elias-alvarez/null-ls.nvim", lazy = true },
   {
     "williamboman/mason.nvim",
@@ -39,8 +39,8 @@ local core_plugins = {
   },
   { "Tastyep/structlog.nvim", lazy = true },
 
-  { "nvim-lua/popup.nvim", lazy = true },
-  { "nvim-lua/plenary.nvim", cmd = { "PlenaryBustedFile", "PlenaryBustedDirectory" }, lazy = true },
+  { "nvim-lua/popup.nvim",    lazy = true },
+  { "nvim-lua/plenary.nvim",  cmd = { "PlenaryBustedFile", "PlenaryBustedDirectory" }, lazy = true },
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
@@ -71,10 +71,10 @@ local core_plugins = {
       "cmp-cmdline",
     },
   },
-  { "hrsh7th/cmp-nvim-lsp", lazy = true },
-  { "saadparwaiz1/cmp_luasnip", lazy = true },
-  { "hrsh7th/cmp-buffer", lazy = true },
-  { "hrsh7th/cmp-path", lazy = true },
+  { "hrsh7th/cmp-nvim-lsp",                     lazy = true },
+  { "saadparwaiz1/cmp_luasnip",                 lazy = true },
+  { "hrsh7th/cmp-buffer",                       lazy = true },
+  { "hrsh7th/cmp-path",                         lazy = true },
   {
     "hrsh7th/cmp-cmdline",
     lazy = true,
@@ -348,6 +348,54 @@ local core_plugins = {
     enabled = lvim.builtin.bigfile.active,
     event = { "FileReadPre", "BufReadPre", "User FileOpened" },
   },
+  {
+    "phaazon/hop.nvim",
+    event = "BufRead",
+    config = function()
+      require("hop").setup()
+      vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+    end,
+  },
+  {
+    "tpope/vim-surround",
+
+    -- make sure to change the value of `timeoutlen` if it's not triggering correctly, see https://github.com/tpope/vim-surround/issues/117
+    -- setup = function()
+    --  vim.o.timeoutlen = 500
+    -- end
+  },
+  {
+    "f-person/git-blame.nvim",
+    event = "BufRead",
+    config = function()
+      vim.cmd "highlight default link gitblame SpecialComment"
+      vim.g.gitblame_enabled = 0
+    end,
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
+  {
+    "mrjones2014/nvim-ts-rainbow",
+  },
+  { "zbirenbaum/copilot.lua",
+    event = { "VimEnter" },
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup {
+          plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
+        }
+      end, 100)
+    end,
+  },
+
+  { "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua", "nvim-cmp" },
+  },
 }
 
 local default_snapshot_path = join_paths(get_lvim_base_dir(), "snapshots", "default.json")
@@ -356,7 +404,7 @@ local default_sha1 = assert(vim.fn.json_decode(content))
 
 -- taken form <https://github.com/folke/lazy.nvim/blob/c7122d64cdf16766433588486adcee67571de6d0/lua/lazy/core/plugin.lua#L27>
 local get_short_name = function(long_name)
-  local name = long_name:sub(-4) == ".git" and long_name:sub(1, -5) or long_name
+  local name = long_name:sub( -4) == ".git" and long_name:sub(1, -5) or long_name
   local slash = name:reverse():find("/", 1, true) --[[@as number?]]
   return slash and name:sub(#name - slash + 2) or long_name:gsub("%W+", "_")
 end
